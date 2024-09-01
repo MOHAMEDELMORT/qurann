@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Web</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        .homepage{
+            width: 100vw;
+            height: 200vh;
+        }
+        .card-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .surah-card{
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.438);
+            margin: 10px;
+            padding: 20px;
+            width: 200px;
+        }
+       
+        .tittle{
+            font-size: 25px;
+        }
+        .audioCard{
+            width: 200px;
+            border-radius: 8px;
+            height: 33px;
+            border: 1px solid black;
+        }
+        .ayat{
+            margin-bottom: 20px;
+        }
+        nav{
+            width: 100vw;
+            height: 45vh;
+            background-color: #B5D9CC;
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav h1{
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+        nav p{
+            font-size: 20px;
+        }
+        nav img{
+            width: 230px;
+            margin-bottom: 28px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="homepage">
+            <nav>
+                <img src="Quran_Kareem 1.png" alt="quran">
+                <h1>QURAN Web</h1>
+                <p>"Jalur Umat Muslim Menuju Kebenaran"</p>
+                <p>"صدقه جاريه علي روح المرحوم الحاج بهجت احمد محمد حسن"</p>
+            </nav>
+            <div id="cardList" class="card-list">
+            
+            </div>
+            
+            
+    </div>
+
+
+    <script>
+         const url = 'https://raw.githubusercontent.com/penggguna/QuranJSON/master/quran.json'
+         const listCard = document.getElementById('cardList');
+
+       
+        fetch(url).then(respone => respone.json()
+        ).then(data => {
+
+            data.forEach(el => {
+
+                    
+
+                    const card = document.createElement("div");
+                    card.classList.add("surah-card");
+
+                    const name = document.createElement('h1')
+                    name.textContent = el.name;
+                    name.classList.add("tittle")
+
+                    const place = document.createElement('p')
+                    place.textContent = el.place;
+                    place.classList.add("tempat")
+
+                    const ayat = document.createElement('h4')
+                    ayat.textContent = el.number_of_ayah + ` Ayat`;
+                    ayat.classList.add("ayat")
+                
+                    const artinya = document.createElement('p')
+                    const arti = el.name_translations
+                    artinya.textContent = arti.id;
+
+                    const audio = document.createElement('audio')
+                    audio.setAttribute('controls','')
+                    audio.src = el.recitation
+                    audio.classList.add("audioCard")
+
+
+                    listCard.appendChild(card);
+                    card.appendChild(artinya);
+                    card.appendChild(name);
+                    card.appendChild(place);
+                    card.appendChild(ayat);
+                    card.appendChild(audio);
+                   
+                    
+                   
+                });
+            
+            
+        })
+    </script>
+
+</body>
+</html>
